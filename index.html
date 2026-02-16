@@ -1,240 +1,320 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LP Template</title>
+    <title>EnergyCut — Take back control</title>
+    <meta name="description" content="A practical app to cut back energy drinks & caffeine—by design, not willpower." />
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Subtle background grid + glow */
+      .bg-grid {
+        background-image:
+          radial-gradient(1200px 600px at 70% 20%, rgba(16,185,129,0.12), transparent 60%),
+          radial-gradient(900px 500px at 20% 10%, rgba(59,130,246,0.10), transparent 55%),
+          radial-gradient(1000px 700px at 50% 90%, rgba(244,63,94,0.06), transparent 60%),
+          linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.00)),
+          repeating-linear-gradient(
+            to right,
+            rgba(255,255,255,0.04) 0px,
+            rgba(255,255,255,0.04) 1px,
+            transparent 1px,
+            transparent 72px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.03) 0px,
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px,
+            transparent 72px
+          );
+      }
+      .card {
+        background: rgba(17, 24, 39, 0.60);
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.40) inset;
+      }
+      .chip {
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        background: rgba(15, 23, 42, 0.55);
+      }
+      .muted { color: rgba(226,232,240,0.72); }
+      .hairline { border-color: rgba(148, 163, 184, 0.16); }
+    </style>
   </head>
-  <body class="bg-white text-zinc-900">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/80 backdrop-blur">
+
+  <body class="min-h-screen bg-slate-950 text-slate-100 bg-grid">
+    <!-- Top Nav -->
+    <header class="sticky top-0 z-50 border-b hairline backdrop-blur bg-slate-950/60">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <div class="flex items-center gap-2">
-          <div class="h-8 w-8 rounded-xl bg-zinc-900"></div>
-          <span class="text-sm font-semibold">YourBrand</span>
+        <div class="flex items-center gap-3">
+          <div class="h-8 w-8 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30"></div>
+          <span class="text-sm font-semibold tracking-wide">EnergyCut</span>
         </div>
-        <nav class="hidden items-center gap-6 text-sm text-zinc-600 md:flex">
-          <a href="#features" class="hover:text-zinc-900">Features</a>
-          <a href="#pricing" class="hover:text-zinc-900">Pricing</a>
-          <a href="#faq" class="hover:text-zinc-900">FAQ</a>
+
+        <nav class="hidden items-center gap-6 text-sm muted md:flex">
+          <a href="#how" class="hover:text-slate-100">How it works</a>
+          <a href="#features" class="hover:text-slate-100">Features</a>
+          <a href="#faq" class="hover:text-slate-100">FAQ</a>
+          <a href="#waitlist" class="hover:text-slate-100">Waitlist</a>
         </nav>
-        <div class="flex items-center gap-2">
-          <a href="#pricing" class="rounded-xl px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-100">Log in</a>
-          <a href="#cta" class="rounded-xl bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800">
-            Get Started
-          </a>
+
+        <div class="flex items-center gap-2 text-xs">
+          <a href="/ja" class="rounded-lg px-2 py-1 chip hover:bg-slate-900/60">JP</a>
+          <span class="muted">|</span>
+          <span class="rounded-lg px-2 py-1 chip">EN</span>
         </div>
       </div>
     </header>
 
     <!-- Hero -->
-    <section class="relative overflow-hidden">
-      <div class="mx-auto max-w-6xl px-4 py-16 md:py-24">
-        <div class="grid items-center gap-10 md:grid-cols-2">
-          <div>
-            <p class="inline-flex items-center gap-2 rounded-full border border-zinc-200 px-3 py-1 text-xs text-zinc-600">
-              <span class="h-2 w-2 rounded-full bg-emerald-500"></span> New
-              <span class="text-zinc-400">/</span> Launch-ready template
-            </p>
-            <h1 class="mt-4 text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-              1行で刺さる価値提案を書く
-              <span class="text-zinc-500">（ベネフィット直球）</span>
-            </h1>
-            <p class="mt-4 text-base leading-relaxed text-zinc-600">
-              ここに「誰の」「どんな痛み」を「どう解決」するかを一文で。次に、3つの差別化ポイントを短く。
-            </p>
+    <section class="mx-auto max-w-6xl px-4 pt-10 pb-8 md:pt-16 md:pb-12">
+      <div class="grid gap-10 md:grid-cols-2 md:items-center">
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="chip rounded-full px-3 py-1 text-xs muted">Coming soon</span>
+            <span class="chip rounded-full px-3 py-1 text-xs">EnergyCut</span>
+          </div>
 
-            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-              <a id="cta" href="#pricing" class="inline-flex items-center justify-center rounded-2xl bg-zinc-900 px-5 py-3 text-sm font-semibold text-white hover:bg-zinc-800">
-                Start free
-              </a>
-              <a href="#features" class="inline-flex items-center justify-center rounded-2xl border border-zinc-300 px-5 py-3 text-sm font-semibold text-zinc-800 hover:bg-zinc-50">
-                See features
-              </a>
-            </div>
+          <h1 class="mt-5 text-4xl font-semibold tracking-tight md:text-5xl">
+            Take back control.
+          </h1>
+          <p class="mt-4 max-w-xl text-sm md:text-base muted">
+            Not about quitting — manage and set weekly limits to stay in charge.
+          </p>
 
-            <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-zinc-500">
-              <div class="flex items-center gap-2">
-                <span class="inline-block h-2 w-2 rounded-full bg-zinc-300"></span> No credit card
+          <ul class="mt-5 space-y-2 text-sm">
+            <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">Log today in seconds</span></li>
+            <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">Set a weekly limit and see progress at a glance</span></li>
+            <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">Gentle reminders to open and check in</span></li>
+          </ul>
+
+          <!-- Waitlist mini form (placeholder) -->
+          <div id="waitlist" class="mt-7 flex max-w-md gap-2">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-emerald-400/40"
+            />
+            <button
+              class="rounded-xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
+              type="button"
+              onclick="alert('Hook this to your email tool (Mailchimp/ConvertKit). For now this is a placeholder.');"
+            >
+              Get launch updates
+            </button>
+          </div>
+          <p class="mt-2 text-xs muted">
+            No spam. Only 1–2 emails at launch. Not medical advice.
+          </p>
+        </div>
+
+        <!-- Phone mock -->
+        <div class="relative">
+          <div class="mx-auto w-full max-w-sm rounded-[36px] card p-4">
+            <div class="rounded-[28px] border hairline bg-slate-950/50 p-6">
+              <div class="mx-auto h-[420px] w-full rounded-[22px] border hairline bg-slate-900/20 flex items-center justify-center text-center">
+                <div>
+                  <p class="text-sm font-semibold">Screens coming soon</p>
+                  <p class="mt-2 text-xs muted">（add your real app screenshots later）</p>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="inline-block h-2 w-2 rounded-full bg-zinc-300"></span> Cancel anytime
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="inline-block h-2 w-2 rounded-full bg-zinc-300"></span> Built for iOS/AI/SaaS
+              <div class="mt-4 flex items-center justify-between text-xs muted">
+                <span>Weekly limits</span>
+                <span>Gentle nudges</span>
               </div>
             </div>
           </div>
 
-          <!-- Mock card -->
-          <div class="relative">
-            <div class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs font-medium text-zinc-500">Dashboard</p>
-                  <p class="mt-1 text-sm font-semibold">Weekly summary</p>
-                </div>
-                <div class="h-10 w-10 rounded-2xl bg-zinc-100"></div>
-              </div>
-              <div class="mt-6 grid gap-3">
-                <div class="rounded-2xl bg-zinc-50 p-4">
-                  <p class="text-xs text-zinc-500">Metric</p>
-                  <p class="mt-1 text-2xl font-bold">+32%</p>
-                  <p class="mt-1 text-xs text-zinc-500">vs last week</p>
-                </div>
-                <div class="rounded-2xl bg-zinc-50 p-4">
-                  <p class="text-xs text-zinc-500">Next action</p>
-                  <p class="mt-1 text-sm font-semibold">Ship your next iteration</p>
-                  <p class="mt-1 text-xs text-zinc-500">Keep it simple, keep it fast.</p>
-                </div>
-              </div>
-            </div>
-            <div class="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-zinc-200/40 blur-2xl"></div>
-            <div class="pointer-events-none absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-emerald-200/40 blur-2xl"></div>
+          <!-- tiny mascot badge placeholder -->
+          <div class="absolute right-2 top-2 h-10 w-10 rounded-2xl bg-slate-900/50 border hairline flex items-center justify-center text-xs muted">
+            :)
           </div>
         </div>
       </div>
+
+      <!-- tagline bar -->
+      <div class="mt-10 rounded-2xl card px-4 py-3 text-xs md:text-sm flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <span class="muted">A practical app for people who actually drink energy drinks</span>
+        <span class="muted">Daily check-ins • Weekly limits • Gentle reminders</span>
+      </div>
     </section>
 
-    <!-- Social proof -->
-    <section class="border-y border-zinc-200/60 bg-zinc-50">
-      <div class="mx-auto max-w-6xl px-4 py-10">
-        <p class="text-center text-xs font-medium text-zinc-500">Trusted by teams building fast</p>
-        <div class="mt-6 grid grid-cols-2 gap-4 text-center text-sm text-zinc-600 md:grid-cols-6">
-          <div class="rounded-xl bg-white p-3 border border-zinc-200/60">Logo</div>
-          <div class="rounded-xl bg-white p-3 border border-zinc-200/60">Logo</div>
-          <div class="rounded-xl bg-white p-3 border border-zinc-200/60">Logo</div>
-          <div class="rounded-xl bg-white p-3 border border-zinc-200/60">Logo</div>
-          <div class="rounded-xl bg-white p-3 border border-zinc-200/60">Logo</div>
-          <div class="rounded-xl bg-white p-3 border border-zinc-200/60">Logo</div>
+    <!-- Philosophy -->
+    <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <div class="text-center">
+        <h2 class="text-2xl md:text-3xl font-semibold">It’s design, not willpower.</h2>
+        <p class="mt-3 text-sm muted">
+          Make it visible. Take small actions. Manage caffeine mindfully.
+        </p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <h3 class="text-lg font-semibold">How it works</h3>
+      <div class="mt-6 grid gap-3 md:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <p class="text-xs muted">STEP 1</p>
+          <p class="mt-2 font-semibold">Log what you had today</p>
+          <p class="mt-2 text-sm muted">Open, tap, done. Visibility helps.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-xs muted">STEP 2</p>
+          <p class="mt-2 font-semibold">Track against your weekly limit</p>
+          <p class="mt-2 text-sm muted">Know where you stand at a glance.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-xs muted">STEP 3</p>
+          <p class="mt-2 font-semibold">Gentle nudges + mascot</p>
+          <p class="mt-2 text-sm muted">Keep the habit going — reminders available even free.</p>
         </div>
       </div>
     </section>
 
     <!-- Features -->
-    <section id="features">
-      <div class="mx-auto max-w-6xl px-4 py-16">
-        <div class="max-w-2xl">
-          <h2 class="text-3xl font-bold tracking-tight">機能は「価値の塊」だけ載せる</h2>
-          <p class="mt-3 text-zinc-600">説明は短く。各カードは「何ができる」ではなく「何が良くなる」。</p>
+    <section id="features" class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <h3 class="text-lg font-semibold">Features</h3>
+      <div class="mt-6 grid gap-3 md:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <p class="font-semibold">Daily check-in</p>
+          <p class="mt-1 text-sm muted">Record in seconds.</p>
         </div>
-        <div class="mt-10 grid gap-4 md:grid-cols-3">
-          <div class="rounded-3xl border border-zinc-200 p-6">
-            <p class="text-sm font-semibold">Fast setup</p>
-            <p class="mt-2 text-sm text-zinc-600">最短で使い始められる導線。オンボーディング軽め。</p>
-          </div>
-          <div class="rounded-3xl border border-zinc-200 p-6">
-            <p class="text-sm font-semibold">Clear outcomes</p>
-            <p class="mt-2 text-sm text-zinc-600">結果が一目でわかるダッシュボード/レポート。</p>
-          </div>
-          <div class="rounded-3xl border border-zinc-200 p-6">
-            <p class="text-sm font-semibold">No clutter</p>
-            <p class="mt-2 text-sm text-zinc-600">余計な機能を削って、毎日使う動線に集中。</p>
-          </div>
+        <div class="card rounded-2xl p-5">
+          <p class="font-semibold">Weekly limit</p>
+          <p class="mt-1 text-sm muted">Set your own cap.</p>
         </div>
+        <div class="card rounded-2xl p-5">
+          <p class="font-semibold">Weekly progress</p>
+          <p class="mt-1 text-sm muted">Clear ratio and remaining.</p>
+        </div>
+
+        <div class="card rounded-2xl p-5">
+          <p class="font-semibold">Gentle reminders</p>
+          <p class="mt-1 text-sm muted">Opt-in nudges to open and log. Free-friendly.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="font-semibold">Mascot states</p>
+          <p class="mt-1 text-sm muted">cute / tired / red — subtle and respectful.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="font-semibold">Simple weekly recap</p>
+          <p class="mt-1 text-sm muted">Light reflection, no health claims.</p>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <h4 class="text-xl md:text-2xl font-semibold">Control beats willpower</h4>
+        <p class="mt-2 text-sm muted">
+          Small actions, visibility, and low-friction routines help you stay in charge — without promising outcomes.
+        </p>
       </div>
     </section>
 
-    <!-- Pricing -->
-    <section id="pricing" class="bg-zinc-50 border-y border-zinc-200/60">
-      <div class="mx-auto max-w-6xl px-4 py-16">
-        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 class="text-3xl font-bold tracking-tight">Pricing</h2>
-            <p class="mt-2 text-zinc-600">無料→価値体験→有料で拡張、の王道。</p>
-          </div>
-          <p class="text-xs text-zinc-500">※ 表示価格は例。実際に合わせて変更。</p>
-        </div>
-
-        <div class="mt-10 grid gap-4 md:grid-cols-3">
-          <div class="rounded-3xl border border-zinc-200 bg-white p-6">
-            <p class="text-sm font-semibold">Free</p>
-            <p class="mt-2 text-4xl font-bold">$0</p>
-            <p class="mt-2 text-sm text-zinc-600">まず価値を体験。</p>
-            <ul class="mt-5 space-y-2 text-sm text-zinc-700">
-              <li>• Core feature (limited)</li>
-              <li>• Basic tracking</li>
-              <li>• Community support</li>
-            </ul>
-            <a href="#cta" class="mt-6 inline-flex w-full items-center justify-center rounded-2xl border border-zinc-300 px-4 py-3 text-sm font-semibold hover:bg-zinc-50">
-              Start free
-            </a>
-          </div>
-
-          <div class="rounded-3xl border border-zinc-900 bg-zinc-900 p-6 text-white shadow-sm">
-            <p class="text-sm font-semibold">Pro</p>
-            <p class="mt-2 text-4xl font-bold">$9<span class="text-base font-semibold text-zinc-300">/mo</span></p>
-            <p class="mt-2 text-sm text-zinc-300">一番売りたいプラン。</p>
-            <ul class="mt-5 space-y-2 text-sm text-zinc-100">
-              <li>• Everything in Free</li>
-              <li>• Unlimited items</li>
-              <li>• Priority updates</li>
-            </ul>
-            <a href="#cta" class="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">
-              Go Pro
-            </a>
-          </div>
-
-          <div class="rounded-3xl border border-zinc-200 bg-white p-6">
-            <p class="text-sm font-semibold">Team</p>
-            <p class="mt-2 text-4xl font-bold">$19<span class="text-base font-semibold text-zinc-500">/mo</span></p>
-            <p class="mt-2 text-sm text-zinc-600">複数人運用向け。</p>
-            <ul class="mt-5 space-y-2 text-sm text-zinc-700">
-              <li>• Collaboration</li>
-              <li>• Shared workspace</li>
-              <li>• Admin controls</li>
-            </ul>
-            <a href="#cta" class="mt-6 inline-flex w-full items-center justify-center rounded-2xl border border-zinc-300 px-4 py-3 text-sm font-semibold hover:bg-zinc-50">
-              Contact
-            </a>
-          </div>
-        </div>
+    <!-- Pricing teaser -->
+    <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <div class="card rounded-2xl p-6 md:p-8 text-center">
+        <h3 class="text-lg font-semibold">Pricing (teaser)</h3>
+        <p class="mt-2 text-sm muted">
+          Core logging will be free. Deeper features planned for Pro. Details at launch.
+        </p>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq">
-      <div class="mx-auto max-w-6xl px-4 py-16">
-        <h2 class="text-3xl font-bold tracking-tight">FAQ</h2>
-        <div class="mt-8 grid gap-4 md:grid-cols-2">
-          <details class="rounded-3xl border border-zinc-200 p-6">
-            <summary class="cursor-pointer text-sm font-semibold">いつでも解約できますか？</summary>
-            <p class="mt-3 text-sm text-zinc-600">できます。サブスクはいつでも停止可能、データ保持ポリシーも明記。</p>
-          </details>
-          <details class="rounded-3xl border border-zinc-200 p-6">
-            <summary class="cursor-pointer text-sm font-semibold">無料版はどこまで使えますか？</summary>
-            <p class="mt-3 text-sm text-zinc-600">“価値体験”できるところまで。上限は1〜3個などにすると強い。</p>
-          </details>
+    <section id="faq" class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+      <h3 class="text-lg font-semibold">FAQ</h3>
+      <div class="mt-6 card rounded-2xl p-2">
+        <details class="group border-b hairline px-4 py-4">
+          <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+            Do I have to quit completely?
+            <span class="muted group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-2 text-sm muted">No. EnergyCut is about reducing and staying in control, not perfection.</p>
+        </details>
+
+        <details class="group border-b hairline px-4 py-4">
+          <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+            Is it free?
+            <span class="muted group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-2 text-sm muted">Core logging is planned to be free. Pro will add deeper insights later.</p>
+        </details>
+
+        <details class="group border-b hairline px-4 py-4">
+          <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+            Coffee/caffeine too?
+            <span class="muted group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-2 text-sm muted">Yes. You can treat energy drinks and caffeine as one weekly budget.</p>
+        </details>
+
+        <details class="group border-b hairline px-4 py-4">
+          <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+            Can I change my weekly limit?
+            <span class="muted group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-2 text-sm muted">Anytime. The point is to make limits realistic and adjustable.</p>
+        </details>
+
+        <details class="group border-b hairline px-4 py-4">
+          <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+            Are reminders annoying?
+            <span class="muted group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-2 text-sm muted">They’re opt-in and designed to be gentle. Turn them off whenever.</p>
+        </details>
+
+        <details class="group px-4 py-4">
+          <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+            Is my data shared?
+            <span class="muted group-open:rotate-180 transition">▾</span>
+          </summary>
+          <p class="mt-2 text-sm muted">No selling of personal data. Add your exact policy at launch.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+      <div class="grid gap-6 md:grid-cols-2 md:items-center card rounded-2xl p-6 md:p-10">
+        <div>
+          <h3 class="text-2xl font-semibold">Lead the week, not the can.</h3>
+          <p class="mt-2 text-sm muted">We’ll email you at launch — one or two notes, max.</p>
+
+          <div class="mt-5 flex max-w-md gap-2">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-emerald-400/40"
+            />
+            <button
+              class="rounded-xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
+              type="button"
+              onclick="alert('Connect this to your email tool later.');"
+            >
+              Get launch updates
+            </button>
+          </div>
+
+          <p class="mt-2 text-xs muted">No spam. Not medical advice.</p>
+        </div>
+
+        <div class="rounded-2xl border hairline bg-slate-950/30 p-5">
+          <p class="text-sm font-semibold">A small accent — the habit is the hero.</p>
+          <p class="mt-2 text-sm muted">Drop your mascot image here later.</p>
+          <div class="mt-4 h-14 w-14 rounded-2xl border hairline bg-slate-900/30 flex items-center justify-center muted">🧃</div>
         </div>
       </div>
     </section>
 
-    <!-- Bottom CTA -->
-    <section class="bg-zinc-900 text-white">
-      <div class="mx-auto max-w-6xl px-4 py-16">
-        <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h3 class="text-2xl font-bold">最後にもう一回、主張を短く。</h3>
-            <p class="mt-2 text-sm text-zinc-300">このCTAの文言が一番大事。</p>
-          </div>
-          <a href="#pricing" class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">
-            Get Started
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="border-t border-zinc-200">
-      <div class="mx-auto max-w-6xl px-4 py-10 text-sm text-zinc-600">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <p>© <span id="y"></span> YourBrand</p>
-          <div class="flex gap-4">
-            <a class="hover:text-zinc-900" href="#">Privacy</a>
-            <a class="hover:text-zinc-900" href="#">Terms</a>
-            <a class="hover:text-zinc-900" href="#">Contact</a>
-          </div>
+    <footer class="border-t hairline">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 text-xs muted">
+        <span>© <span id="y"></span> EnergyCut</span>
+        <div class="flex gap-4">
+          <a class="hover:text-slate-100" href="#">Privacy Policy</a>
+          <a class="hover:text-slate-100" href="#">Terms</a>
+          <a class="hover:text-slate-100" href="#">Support</a>
         </div>
       </div>
     </footer>
