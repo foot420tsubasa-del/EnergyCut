@@ -6,40 +6,69 @@
   <title>EnergyCut — Take back control</title>
   <meta name="description" content="A practical app to cut back energy drinks & caffeine—by design, not willpower." />
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
+    :root{
+      /* ✅ change only this when you have your YouTube id */
+      --video-id: "VIDEO_ID";
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* ✅ Softer grid + emerald-forward background */
     .bg-grid{
       background-image:
         radial-gradient(1200px 600px at 70% 20%, rgba(16,185,129,0.12), transparent 60%),
-        radial-gradient(900px 500px at 20% 10%, rgba(59,130,246,0.10), transparent 55%),
-        radial-gradient(1000px 700px at 50% 90%, rgba(244,63,94,0.06), transparent 60%),
+        radial-gradient(900px 500px at 20% 10%, rgba(59,130,246,0.06), transparent 55%),
+        radial-gradient(1000px 700px at 50% 90%, rgba(244,63,94,0.035), transparent 60%),
         linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.00)),
-        repeating-linear-gradient(to right, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 72px),
-        repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 72px);
+        repeating-linear-gradient(to right,
+          rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px,
+          transparent 1px, transparent 84px
+        ),
+        repeating-linear-gradient(to bottom,
+          rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px,
+          transparent 1px, transparent 84px
+        );
     }
-    .hairline{border-color:rgba(148,163,184,0.16)}
+
+    .hairline{ border-color: rgba(148,163,184,0.16); }
     .card{
-      background:rgba(17,24,39,0.60);
-      border:1px solid rgba(148,163,184,0.16);
-      box-shadow:0 0 0 1px rgba(15,23,42,0.40) inset;
+      background: rgba(17,24,39,0.60);
+      border: 1px solid rgba(148,163,184,0.16);
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.40) inset;
     }
     .chip{
-      border:1px solid rgba(148,163,184,0.18);
-      background:rgba(15,23,42,0.55);
+      border: 1px solid rgba(148,163,184,0.18);
+      background: rgba(15,23,42,0.55);
     }
-    .muted{color:rgba(226,232,240,0.72)}
+    .muted{ color: rgba(226,232,240,0.72); }
+
+    /* minor polish */
+    .focus-ring:focus{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.18);
+      border-color: rgba(52,211,153,0.45) !important;
+    }
   </style>
 </head>
+
 <body class="min-h-screen bg-slate-950 text-slate-100 bg-grid">
   <!-- Nav -->
   <header class="sticky top-0 z-50 border-b hairline backdrop-blur bg-slate-950/60">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-3">
-        <img src="/assets/logo.png" alt="EnergyCut"
-           class="h-12 w-12 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
-           onerror="this.style.display='none'"/>
+      <div class="flex items-center gap-2">
+        <img
+          src="/assets/logo.png"
+          alt="EnergyCut"
+          class="h-8 w-8 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
+          onerror="this.style.display='none'"
+        />
         <span class="text-sm font-semibold tracking-wide">EnergyCut</span>
-        <img src="/assets/cute.png" alt="EnergyCut mascot"
-          class="h-7 w-7 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
+        <img
+          src="/assets/cute.png"
+          alt="EnergyCut mascot"
+          class="h-6 w-6 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
           onerror="this.style.display='none'"
         />
       </div>
@@ -50,14 +79,12 @@
         <a href="#features" class="hover:text-slate-100">Features</a>
         <a href="#faq" class="hover:text-slate-100">FAQ</a>
         <a href="#waitlist" class="hover:text-slate-100">Waitlist</a>
-      </nav>      
+      </nav>
 
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-2 text-xs">
-          <a href="/ja" class="rounded-lg px-2 py-1 chip hover:bg-slate-900/60">JP</a>
-          <span class="muted">|</span>
-          <span class="rounded-lg px-2 py-1 chip">EN</span>
-        </div>
+      <div class="flex items-center gap-2 text-xs">
+        <a href="/ja" class="rounded-lg px-2 py-1 chip hover:bg-slate-900/60">JP</a>
+        <span class="muted">|</span>
+        <span class="rounded-lg px-2 py-1 chip">EN</span>
       </div>
     </div>
   </header>
@@ -76,27 +103,64 @@
           Not about quitting — manage and set weekly limits to stay in charge.
         </p>
 
+        <!-- ✅ extra in-hero link -->
+        <a href="#video" class="mt-4 inline-flex items-center gap-2 text-sm muted hover:text-slate-100">
+          Watch the preview <span aria-hidden="true">→</span>
+        </a>
+
         <ul class="mt-5 space-y-2 text-sm">
-          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">Log today in seconds</span></li>
-          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">Set a weekly limit and see progress at a glance</span></li>
-          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">Gentle reminders to open and check in</span></li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span class="muted">Log today in seconds</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span class="muted">Set a weekly limit and see progress at a glance</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span class="muted">Gentle reminders to open and check in</span>
+          </li>
         </ul>
 
-        <div id="waitlist" class="mt-7 flex max-w-md gap-2">
-          <input id="email-en" type="email" placeholder="Enter your email"
-            class="w-full rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-emerald-400/40" />
-          <button id="btn-en" class="rounded-xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300">
-            Get launch updates
-          </button>
+        <!-- ✅ waitlist + badge (responsive + never breaks) -->
+        <div id="waitlist" class="mt-7 max-w-md">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+            <input
+              id="email-en"
+              type="email"
+              placeholder="Enter your email"
+              class="min-w-0 flex-1 rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm placeholder:text-slate-400 focus-ring"
+            />
+            <button
+              id="btn-en"
+              class="shrink-0 rounded-xl bg-emerald-400/90 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300 whitespace-nowrap"
+            >
+              Get launch updates
+            </button>
+          </div>
+
+          <p class="mt-2 text-xs muted">No spam. Only 1–2 emails at launch. Not medical advice.</p>
+
+          <div class="mt-4 flex items-center gap-3">
+            <a href="#" class="inline-flex items-center" aria-label="Download on the App Store">
+              <img
+                src="/assets/appstore-badge.svg"
+                alt="Download on the App Store"
+                class="h-10 w-auto opacity-90 hover:opacity-100 transition"
+              />
+            </a>
+            <span class="text-xs muted">iOS first. Android later.</span>
+          </div>
         </div>
-        <p class="mt-2 text-xs muted">No spam. Only 1–2 emails at launch. Not medical advice.</p>
       </div>
 
       <!-- Phone -->
       <div class="relative">
         <div class="mx-auto w-full max-w-sm rounded-[36px] card p-4">
           <div class="rounded-[28px] border hairline bg-slate-950/50 p-6">
-            <div class="mx-auto h-[420px] w-full rounded-[22px] border hairline bg-slate-900/20 flex items-center justify-center text-center">
+            <!-- ✅ more “real” screen background -->
+            <div class="mx-auto h-[420px] w-full rounded-[22px] border hairline bg-gradient-to-b from-slate-900/30 to-slate-950/40 flex items-center justify-center text-center">
               <div>
                 <p class="text-sm font-semibold">Screens coming soon</p>
                 <p class="mt-2 text-xs muted">(drop real screenshots later)</p>
@@ -116,8 +180,8 @@
     </div>
   </section>
 
-<!-- Video -->
-<section id="video" class="mx-auto max-w-6xl px-4 pb-10 md:pb-14">
+  <!-- Video -->
+  <section id="video" class="mx-auto max-w-6xl px-4 pb-10 md:pb-14">
     <div class="card rounded-2xl p-5 md:p-7">
       <div class="flex items-end justify-between gap-4">
         <div>
@@ -126,10 +190,10 @@
         </div>
         <a href="#waitlist" class="text-sm muted hover:text-slate-100">Get launch updates →</a>
       </div>
-  
+
       <div class="mt-5 overflow-hidden rounded-2xl border hairline bg-slate-950/40">
-        <!-- Replace VIDEO_ID with your YouTube video id (e.g., dQw4w9WgXcQ) -->
         <iframe
+          id="yt"
           class="w-full aspect-video"
           src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&playsinline=1"
           title="EnergyCut preview"
@@ -140,14 +204,14 @@
           allowfullscreen
         ></iframe>
       </div>
-  
+
       <div class="mt-3 flex flex-wrap items-center gap-2 text-xs muted">
         <span class="chip rounded-full px-3 py-1">Unlisted OK while iterating</span>
         <span class="chip rounded-full px-3 py-1">Swap VIDEO_ID anytime</span>
       </div>
     </div>
   </section>
-  
+
   <!-- Philosophy -->
   <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <div class="text-center">
@@ -277,12 +341,26 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-    // Placeholder waitlist behavior (no backend yet)
-    document.getElementById("btn-en").addEventListener("click", () => {
-      const v = document.getElementById("email-en").value.trim();
+
+    // ✅ Put your actual YouTube ID here and it will reflect automatically
+    // Example: const VIDEO_ID = "dQw4w9WgXcQ";
+    const VIDEO_ID = "VIDEO_ID";
+    const yt = document.getElementById("yt");
+    if (yt && VIDEO_ID && VIDEO_ID !== "VIDEO_ID") {
+      yt.src = `https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1&playsinline=1`;
+    }
+
+    function submitWaitlist(){
+      const input = document.getElementById("email-en");
+      const v = (input?.value || "").trim();
       if (!v) return alert("Please enter an email.");
       alert("Saved (placeholder). Connect Mailchimp/ConvertKit/Google Forms later.");
-      document.getElementById("email-en").value = "";
+      input.value = "";
+    }
+
+    document.getElementById("btn-en")?.addEventListener("click", submitWaitlist);
+    document.getElementById("email-en")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitWaitlist();
     });
   </script>
 </body>
