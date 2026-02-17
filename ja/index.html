@@ -1,4 +1,3 @@
-mkdir -p ja
 cat > ja/index.html <<'EOF'
 <!doctype html>
 <html lang="ja">
@@ -15,22 +14,34 @@ cat > ja/index.html <<'EOF'
         radial-gradient(900px 500px at 20% 10%, rgba(59,130,246,0.10), transparent 55%),
         radial-gradient(1000px 700px at 50% 90%, rgba(244,63,94,0.06), transparent 60%),
         linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.00)),
-        repeating-linear-gradient(to right, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 72px),
-        repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0px, rgba(255,255,255,003) 1px, transparent 1px, transparent 72px);
+        /* grid (soften a bit to avoid visible banding on some displays) */
+        repeating-linear-gradient(to right, rgba(255,255,255,0.028) 0px, rgba(255,255,255,0.028) 1px, transparent 1px, transparent 72px),
+        repeating-linear-gradient(to bottom, rgba(255,255,255,0.022) 0px, rgba(255,255,255,0.022) 1px, transparent 1px, transparent 72px);
     }
     .hairline{border-color:rgba(148,163,184,0.16)}
-    .card{background:rgba(17,24,39,0.60);border:1px solid rgba(148,163,184,0.16);box-shadow:0 0 0 1px rgba(15,23,42,0.40) inset;}
-    .chip{border:1px solid rgba(148,163,184,0.18);background:rgba(15,23,42,0.55);}
+    .card{
+      background:rgba(17,24,39,0.60);
+      border:1px solid rgba(148,163,184,0.16);
+      box-shadow:0 0 0 1px rgba(15,23,42,0.40) inset;
+    }
+    .chip{
+      border:1px solid rgba(148,163,184,0.18);
+      background:rgba(15,23,42,0.55);
+    }
     .muted{color:rgba(226,232,240,0.72)}
   </style>
 </head>
+
 <body class="min-h-screen bg-slate-950 text-slate-100 bg-grid">
+  <!-- Nav -->
   <header class="sticky top-0 z-50 border-b hairline backdrop-blur bg-slate-950/60">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
       <div class="flex items-center gap-3">
         <div class="h-8 w-8 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30"></div>
         <span class="text-sm font-semibold tracking-wide">EnergyCut</span>
-        <img src="/assets/cute.png" alt="EnergyCut mascot"
+        <img
+          src="/assets/cute.png"
+          alt="EnergyCut mascot"
           class="h-7 w-7 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
           onerror="this.style.display='none'"
         />
@@ -38,6 +49,7 @@ cat > ja/index.html <<'EOF'
 
       <nav class="hidden items-center gap-6 text-sm muted md:flex">
         <a href="#how" class="hover:text-slate-100">使い方</a>
+        <a href="#video" class="hover:text-slate-100">動画</a>
         <a href="#features" class="hover:text-slate-100">機能</a>
         <a href="#faq" class="hover:text-slate-100">FAQ</a>
         <a href="#waitlist" class="hover:text-slate-100">通知登録</a>
@@ -51,6 +63,7 @@ cat > ja/index.html <<'EOF'
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="mx-auto max-w-6xl px-4 pt-10 pb-8 md:pt-16 md:pb-12">
     <div class="grid gap-10 md:grid-cols-2 md:items-center">
       <div>
@@ -65,21 +78,38 @@ cat > ja/index.html <<'EOF'
         </p>
 
         <ul class="mt-5 space-y-2 text-sm">
-          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">今日の記録は数秒で完了</span></li>
-          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">週上限に対して、進捗がひと目で分かる</span></li>
-          <li class="flex gap-2"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span><span class="muted">やさしいリマインドで“開いて記録”を継続</span></li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span class="muted">今日の記録は数秒で完了</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span class="muted">週上限に対して、進捗がひと目で分かる</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            <span class="muted">やさしいリマインドで“開いて記録”を継続</span>
+          </li>
         </ul>
 
         <div id="waitlist" class="mt-7 flex max-w-md gap-2">
-          <input id="email-ja" type="email" placeholder="メールアドレス"
-            class="w-full rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-emerald-400/40" />
-          <button id="btn-ja" class="rounded-xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300">
+          <input
+            id="email-ja"
+            type="email"
+            placeholder="メールアドレス"
+            class="w-full rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-emerald-400/40"
+          />
+          <button
+            id="btn-ja"
+            class="rounded-xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
+          >
             リリース通知
           </button>
         </div>
         <p class="mt-2 text-xs muted">スパムなし。リリース時に1〜2通だけ。医療的助言ではありません。</p>
       </div>
 
+      <!-- Phone -->
       <div class="relative">
         <div class="mx-auto w-full max-w-sm rounded-[36px] card p-4">
           <div class="rounded-[28px] border hairline bg-slate-950/50 p-6">
@@ -103,6 +133,39 @@ cat > ja/index.html <<'EOF'
     </div>
   </section>
 
+  <!-- Video -->
+  <section id="video" class="mx-auto max-w-6xl px-4 pb-10 md:pb-14">
+    <div class="card rounded-2xl p-5 md:p-7">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h3 class="text-lg font-semibold">プロモ動画</h3>
+          <p class="mt-1 text-sm muted">30〜60秒で全体像をざっくり。</p>
+        </div>
+        <a href="#waitlist" class="text-sm muted hover:text-slate-100">通知登録 →</a>
+      </div>
+
+      <div class="mt-5 overflow-hidden rounded-2xl border hairline bg-slate-950/40">
+        <!-- VIDEO_ID をYouTubeの動画IDに置き換え -->
+        <iframe
+          class="w-full aspect-video"
+          src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&playsinline=1"
+          title="EnergyCut promo"
+          frameborder="0"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <div class="mt-3 flex flex-wrap items-center gap-2 text-xs muted">
+        <span class="chip rounded-full px-3 py-1">作成中は限定公開でOK</span>
+        <span class="chip rounded-full px-3 py-1">VIDEO_ID差し替えだけで更新</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
   <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <div class="text-center">
       <h2 class="text-2xl md:text-3xl font-semibold">意志力じゃなく、設計。</h2>
@@ -110,15 +173,29 @@ cat > ja/index.html <<'EOF'
     </div>
   </section>
 
+  <!-- How -->
   <section id="how" class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <h3 class="text-lg font-semibold">使い方</h3>
     <div class="mt-6 grid gap-3 md:grid-cols-3">
-      <div class="card rounded-2xl p-5"><p class="text-xs muted">STEP 1</p><p class="mt-2 font-semibold">今日飲んだものを記録</p><p class="mt-2 text-sm muted">開いて、タップして、終わり。</p></div>
-      <div class="card rounded-2xl p-5"><p class="text-xs muted">STEP 2</p><p class="mt-2 font-semibold">週上限に対して進捗を見る</p><p class="mt-2 text-sm muted">今どこにいるか、ひと目で。</p></div>
-      <div class="card rounded-2xl p-5"><p class="text-xs muted">STEP 3</p><p class="mt-2 font-semibold">やさしい通知＋マスコット</p><p class="mt-2 text-sm muted">無料でも続けやすい設計。</p></div>
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs muted">STEP 1</p>
+        <p class="mt-2 font-semibold">今日飲んだものを記録</p>
+        <p class="mt-2 text-sm muted">開いて、タップして、終わり。</p>
+      </div>
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs muted">STEP 2</p>
+        <p class="mt-2 font-semibold">週上限に対して進捗を見る</p>
+        <p class="mt-2 text-sm muted">今どこにいるか、ひと目で。</p>
+      </div>
+      <div class="card rounded-2xl p-5">
+        <p class="text-xs muted">STEP 3</p>
+        <p class="mt-2 font-semibold">やさしい通知＋マスコット</p>
+        <p class="mt-2 text-sm muted">無料でも続けやすい設計。</p>
+      </div>
     </div>
   </section>
 
+  <!-- Features -->
   <section id="features" class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <h3 class="text-lg font-semibold">機能</h3>
     <div class="mt-6 grid gap-3 md:grid-cols-3">
@@ -136,6 +213,7 @@ cat > ja/index.html <<'EOF'
     </div>
   </section>
 
+  <!-- Pricing -->
   <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <div class="card rounded-2xl p-6 md:p-8 text-center">
       <h3 class="text-lg font-semibold">料金（予告）</h3>
@@ -143,18 +221,38 @@ cat > ja/index.html <<'EOF'
     </div>
   </section>
 
+  <!-- FAQ -->
   <section id="faq" class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <h3 class="text-lg font-semibold">FAQ</h3>
     <div class="mt-6 card rounded-2xl p-2">
-      <details class="group border-b hairline px-4 py-4"><summary class="cursor-pointer list-none font-semibold flex items-center justify-between">完全にやめないとダメ？<span class="muted group-open:rotate-180 transition">▾</span></summary><p class="mt-2 text-sm muted">いいえ。「減らして管理する」ためのアプリです。</p></details>
-      <details class="group border-b hairline px-4 py-4"><summary class="cursor-pointer list-none font-semibold flex items-center justify-between">無料？<span class="muted group-open:rotate-180 transition">▾</span></summary><p class="mt-2 text-sm muted">基本の記録は無料予定。Proは後日詳細を出します。</p></details>
-      <details class="group border-b hairline px-4 py-4"><summary class="cursor-pointer list-none font-semibold flex items-center justify-between">コーヒー/カフェインも？<span class="muted group-open:rotate-180 transition">▾</span></summary><p class="mt-2 text-sm muted">はい。エナドリとカフェインを“週予算”として扱えます。</p></details>
-      <details class="group border-b hairline px-4 py-4"><summary class="cursor-pointer list-none font-semibold flex items-center justify-between">週上限は変更できる？<span class="muted group-open:rotate-180 transition">▾</span></summary><p class="mt-2 text-sm muted">いつでも可能。現実的に調整しながら続ける設計です。</p></details>
-      <details class="group border-b hairline px-4 py-4"><summary class="cursor-pointer list-none font-semibold flex items-center justify-between">通知はうるさくない？<span class="muted group-open:rotate-180 transition">▾</span></summary><p class="mt-2 text-sm muted">任意でON/OFF。やさしい頻度を前提にします。</p></details>
-      <details class="group px-4 py-4"><summary class="cursor-pointer list-none font-semibold flex items-center justify-between">データは共有される？<span class="muted group-open:rotate-180 transition">▾</span></summary><p class="mt-2 text-sm muted">個人データの販売はしません。正確な文言はローンチ時に明記します。</p></details>
+      <details class="group border-b hairline px-4 py-4">
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">完全にやめないとダメ？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <p class="mt-2 text-sm muted">いいえ。「減らして管理する」ためのアプリです。</p>
+      </details>
+      <details class="group border-b hairline px-4 py-4">
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">無料？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <p class="mt-2 text-sm muted">基本の記録は無料予定。Proは後日詳細を出します。</p>
+      </details>
+      <details class="group border-b hairline px-4 py-4">
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">コーヒー/カフェインも？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <p class="mt-2 text-sm muted">はい。エナドリとカフェインを“週予算”として扱えます。</p>
+      </details>
+      <details class="group border-b hairline px-4 py-4">
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">週上限は変更できる？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <p class="mt-2 text-sm muted">いつでも可能。現実的に調整しながら続ける設計です。</p>
+      </details>
+      <details class="group border-b hairline px-4 py-4">
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">通知はうるさくない？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <p class="mt-2 text-sm muted">任意でON/OFF。やさしい頻度を前提にします。</p>
+      </details>
+      <details class="group px-4 py-4">
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">データは共有される？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <p class="mt-2 text-sm muted">個人データの販売はしません。正確な文言はローンチ時に明記します。</p>
+      </details>
     </div>
   </section>
 
+  <!-- Final CTA -->
   <section class="mx-auto max-w-6xl px-4 py-12 md:py-16">
     <div class="grid gap-6 md:grid-cols-2 md:items-center card rounded-2xl p-6 md:p-10">
       <div>
