@@ -1,4 +1,3 @@
-cat > ja/index.html <<'EOF'
 <!doctype html>
 <html lang="ja">
 <head>
@@ -7,28 +6,49 @@ cat > ja/index.html <<'EOF'
   <title>EnergyCut — 主導権を取り戻す</title>
   <meta name="description" content="エナジードリンク/カフェインを“意志力”ではなく“設計”で減らす、実用アプリ。" />
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
+    :root{
+      /* ✅ YouTube IDはここ or 下の const VIDEO_ID を差し替え */
+      --video-id: "VIDEO_ID";
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* ✅ 横線(グリッド)を薄くして目立ちにくく */
     .bg-grid{
       background-image:
         radial-gradient(1200px 600px at 70% 20%, rgba(16,185,129,0.12), transparent 60%),
-        radial-gradient(900px 500px at 20% 10%, rgba(59,130,246,0.10), transparent 55%),
-        radial-gradient(1000px 700px at 50% 90%, rgba(244,63,94,0.06), transparent 60%),
+        radial-gradient(900px 500px at 20% 10%, rgba(59,130,246,0.06), transparent 55%),
+        radial-gradient(1000px 700px at 50% 90%, rgba(244,63,94,0.035), transparent 60%),
         linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.00)),
-        /* grid (soften a bit to avoid visible banding on some displays) */
-        repeating-linear-gradient(to right, rgba(255,255,255,0.028) 0px, rgba(255,255,255,0.028) 1px, transparent 1px, transparent 72px),
-        repeating-linear-gradient(to bottom, rgba(255,255,255,0.022) 0px, rgba(255,255,255,0.022) 1px, transparent 1px, transparent 72px);
+        repeating-linear-gradient(to right,
+          rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px,
+          transparent 1px, transparent 84px
+        ),
+        repeating-linear-gradient(to bottom,
+          rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px,
+          transparent 1px, transparent 84px
+        );
     }
-    .hairline{border-color:rgba(148,163,184,0.16)}
+
+    .hairline{ border-color: rgba(148,163,184,0.16); }
     .card{
-      background:rgba(17,24,39,0.60);
-      border:1px solid rgba(148,163,184,0.16);
-      box-shadow:0 0 0 1px rgba(15,23,42,0.40) inset;
+      background: rgba(17,24,39,0.60);
+      border: 1px solid rgba(148,163,184,0.16);
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.40) inset;
     }
     .chip{
-      border:1px solid rgba(148,163,184,0.18);
-      background:rgba(15,23,42,0.55);
+      border: 1px solid rgba(148,163,184,0.18);
+      background: rgba(15,23,42,0.55);
     }
-    .muted{color:rgba(226,232,240,0.72)}
+    .muted{ color: rgba(226,232,240,0.72); }
+
+    .focus-ring:focus{
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.18);
+      border-color: rgba(52,211,153,0.45) !important;
+    }
   </style>
 </head>
 
@@ -36,13 +56,18 @@ cat > ja/index.html <<'EOF'
   <!-- Nav -->
   <header class="sticky top-0 z-50 border-b hairline backdrop-blur bg-slate-950/60">
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-3">
-        <div class="h-8 w-8 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/30"></div>
+      <div class="flex items-center gap-2">
+        <img
+          src="/assets/logo.png"
+          alt="EnergyCut"
+          class="h-8 w-8 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
+          onerror="this.style.display='none'"
+        />
         <span class="text-sm font-semibold tracking-wide">EnergyCut</span>
         <img
           src="/assets/cute.png"
           alt="EnergyCut mascot"
-          class="h-7 w-7 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
+          class="h-6 w-6 rounded-xl border hairline bg-slate-900/30 p-1 object-contain"
           onerror="this.style.display='none'"
         />
       </div>
@@ -77,6 +102,11 @@ cat > ja/index.html <<'EOF'
           「やめる」じゃなくて、週次の上限を決めて“管理する”。
         </p>
 
+        <!-- ✅ 追加導線 -->
+        <a href="#video" class="mt-4 inline-flex items-center gap-2 text-sm muted hover:text-slate-100">
+          プレビューを見る <span aria-hidden="true">→</span>
+        </a>
+
         <ul class="mt-5 space-y-2 text-sm">
           <li class="flex gap-2">
             <span class="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
@@ -92,28 +122,43 @@ cat > ja/index.html <<'EOF'
           </li>
         </ul>
 
-        <div id="waitlist" class="mt-7 flex max-w-md gap-2">
-          <input
-            id="email-ja"
-            type="email"
-            placeholder="メールアドレス"
-            class="w-full rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm outline-none placeholder:text-slate-400 focus:border-emerald-400/40"
-          />
-          <button
-            id="btn-ja"
-            class="rounded-xl bg-emerald-400/90 px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300"
-          >
-            リリース通知
-          </button>
+        <!-- ✅ waitlist + badge（崩れない） -->
+        <div id="waitlist" class="mt-7 max-w-md">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-stretch">
+            <input
+              id="email-ja"
+              type="email"
+              placeholder="メールアドレス"
+              class="min-w-0 flex-1 rounded-xl border hairline bg-slate-950/40 px-4 py-3 text-sm placeholder:text-slate-400 focus-ring"
+            />
+            <button
+              id="btn-ja"
+              class="shrink-0 rounded-xl bg-emerald-400/90 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-300 whitespace-nowrap"
+            >
+              リリース通知
+            </button>
+          </div>
+
+          <p class="mt-2 text-xs muted">スパムなし。リリース時に1〜2通だけ。医療的助言ではありません。</p>
+
+          <div class="mt-4 flex items-center gap-3">
+            <a href="#" class="inline-flex items-center" aria-label="App Storeで入手">
+              <img
+                src="/assets/appstore-badge.svg"
+                alt="Download on the App Store"
+                class="h-10 w-auto opacity-90 hover:opacity-100 transition"
+              />
+            </a>
+            <span class="text-xs muted">まずはiOS。Androidは後日。</span>
+          </div>
         </div>
-        <p class="mt-2 text-xs muted">スパムなし。リリース時に1〜2通だけ。医療的助言ではありません。</p>
       </div>
 
       <!-- Phone -->
       <div class="relative">
         <div class="mx-auto w-full max-w-sm rounded-[36px] card p-4">
           <div class="rounded-[28px] border hairline bg-slate-950/50 p-6">
-            <div class="mx-auto h-[420px] w-full rounded-[22px] border hairline bg-slate-900/20 flex items-center justify-center text-center">
+            <div class="mx-auto h-[420px] w-full rounded-[22px] border hairline bg-gradient-to-b from-slate-900/30 to-slate-950/40 flex items-center justify-center text-center">
               <div>
                 <p class="text-sm font-semibold">画面は準備中</p>
                 <p class="mt-2 text-xs muted">（後でスクショ差し替え）</p>
@@ -138,18 +183,18 @@ cat > ja/index.html <<'EOF'
     <div class="card rounded-2xl p-5 md:p-7">
       <div class="flex items-end justify-between gap-4">
         <div>
-          <h3 class="text-lg font-semibold">プロモ動画</h3>
-          <p class="mt-1 text-sm muted">30〜60秒で全体像をざっくり。</p>
+          <h3 class="text-lg font-semibold">プレビュー動画</h3>
+          <p class="mt-1 text-sm muted">30〜60秒の短い紹介（盛らない）。</p>
         </div>
-        <a href="#waitlist" class="text-sm muted hover:text-slate-100">通知登録 →</a>
+        <a href="#waitlist" class="text-sm muted hover:text-slate-100">通知登録へ →</a>
       </div>
 
       <div class="mt-5 overflow-hidden rounded-2xl border hairline bg-slate-950/40">
-        <!-- VIDEO_ID をYouTubeの動画IDに置き換え -->
         <iframe
+          id="yt"
           class="w-full aspect-video"
           src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1&playsinline=1"
-          title="EnergyCut promo"
+          title="EnergyCut preview"
           frameborder="0"
           loading="lazy"
           referrerpolicy="strict-origin-when-cross-origin"
@@ -159,8 +204,8 @@ cat > ja/index.html <<'EOF'
       </div>
 
       <div class="mt-3 flex flex-wrap items-center gap-2 text-xs muted">
-        <span class="chip rounded-full px-3 py-1">作成中は限定公開でOK</span>
-        <span class="chip rounded-full px-3 py-1">VIDEO_ID差し替えだけで更新</span>
+        <span class="chip rounded-full px-3 py-1">限定公開でもOK</span>
+        <span class="chip rounded-full px-3 py-1">VIDEO_IDを差し替えるだけ</span>
       </div>
     </div>
   </section>
@@ -202,8 +247,8 @@ cat > ja/index.html <<'EOF'
       <div class="card rounded-2xl p-5"><p class="font-semibold">日次チェックイン</p><p class="mt-1 text-sm muted">数秒で記録。</p></div>
       <div class="card rounded-2xl p-5"><p class="font-semibold">週上限</p><p class="mt-1 text-sm muted">自分で上限を設定。</p></div>
       <div class="card rounded-2xl p-5"><p class="font-semibold">週進捗</p><p class="mt-1 text-sm muted">割合と残りが分かりやすい。</p></div>
-      <div class="card rounded-2xl p-5"><p class="font-semibold">やさしいリマインド</p><p class="mt-1 text-sm muted">任意でON。無料でも使いやすく。</p></div>
-      <div class="card rounded-2xl p-5"><p class="font-semibold">マスコット状態</p><p class="mt-1 text-sm muted">cute / tired / red（アプリ内のみ）</p></div>
+      <div class="card rounded-2xl p-5"><p class="font-semibold">やさしいリマインド</p><p class="mt-1 text-sm muted">任意でON/OFF。</p></div>
+      <div class="card rounded-2xl p-5"><p class="font-semibold">マスコット状態</p><p class="mt-1 text-sm muted">cute / tired / red（アプリ内）</p></div>
       <div class="card rounded-2xl p-5"><p class="font-semibold">シンプル週レポ</p><p class="mt-1 text-sm muted">健康効果は謳わず、振り返り中心。</p></div>
     </div>
 
@@ -213,7 +258,7 @@ cat > ja/index.html <<'EOF'
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- Pricing teaser -->
   <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
     <div class="card rounded-2xl p-6 md:p-8 text-center">
       <h3 class="text-lg font-semibold">料金（予告）</h3>
@@ -226,27 +271,39 @@ cat > ja/index.html <<'EOF'
     <h3 class="text-lg font-semibold">FAQ</h3>
     <div class="mt-6 card rounded-2xl p-2">
       <details class="group border-b hairline px-4 py-4">
-        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">完全にやめないとダメ？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+          完全にやめないとダメ？ <span class="muted group-open:rotate-180 transition">▾</span>
+        </summary>
         <p class="mt-2 text-sm muted">いいえ。「減らして管理する」ためのアプリです。</p>
       </details>
       <details class="group border-b hairline px-4 py-4">
-        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">無料？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+          無料？ <span class="muted group-open:rotate-180 transition">▾</span>
+        </summary>
         <p class="mt-2 text-sm muted">基本の記録は無料予定。Proは後日詳細を出します。</p>
       </details>
       <details class="group border-b hairline px-4 py-4">
-        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">コーヒー/カフェインも？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+          コーヒー/カフェインも？ <span class="muted group-open:rotate-180 transition">▾</span>
+        </summary>
         <p class="mt-2 text-sm muted">はい。エナドリとカフェインを“週予算”として扱えます。</p>
       </details>
       <details class="group border-b hairline px-4 py-4">
-        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">週上限は変更できる？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+          週上限は変更できる？ <span class="muted group-open:rotate-180 transition">▾</span>
+        </summary>
         <p class="mt-2 text-sm muted">いつでも可能。現実的に調整しながら続ける設計です。</p>
       </details>
       <details class="group border-b hairline px-4 py-4">
-        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">通知はうるさくない？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+          通知はうるさくない？ <span class="muted group-open:rotate-180 transition">▾</span>
+        </summary>
         <p class="mt-2 text-sm muted">任意でON/OFF。やさしい頻度を前提にします。</p>
       </details>
       <details class="group px-4 py-4">
-        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">データは共有される？<span class="muted group-open:rotate-180 transition">▾</span></summary>
+        <summary class="cursor-pointer list-none font-semibold flex items-center justify-between">
+          データは共有される？ <span class="muted group-open:rotate-180 transition">▾</span>
+        </summary>
         <p class="mt-2 text-sm muted">個人データの販売はしません。正確な文言はローンチ時に明記します。</p>
       </details>
     </div>
@@ -282,11 +339,26 @@ cat > ja/index.html <<'EOF'
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
-    document.getElementById("btn-ja").addEventListener("click", () => {
-      const v = document.getElementById("email-ja").value.trim();
+
+    // ✅ YouTube: ここを自分のIDに置換
+    // 例: const VIDEO_ID = "dQw4w9WgXcQ";
+    const VIDEO_ID = "VIDEO_ID";
+    const yt = document.getElementById("yt");
+    if (yt && VIDEO_ID && VIDEO_ID !== "VIDEO_ID") {
+      yt.src = `https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1&playsinline=1`;
+    }
+
+    function submitWaitlist(){
+      const input = document.getElementById("email-ja");
+      const v = (input?.value || "").trim();
       if (!v) return alert("メールアドレスを入力してください。");
       alert("保存しました（ダミー）。後でフォーム連携します。");
-      document.getElementById("email-ja").value = "";
+      input.value = "";
+    }
+
+    document.getElementById("btn-ja")?.addEventListener("click", submitWaitlist);
+    document.getElementById("email-ja")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitWaitlist();
     });
   </script>
 </body>
